@@ -1,0 +1,126 @@
+body{
+	font-family: 'Oswald', sans-serif;
+}
+/* navigation styles */
+.mobile-nav{
+	display: none;
+}
+.mobile-nav .title, .mobile-nav .navItem{
+	width: 100%;
+	text-align: center;
+	padding-bottom: 10px;
+	border-bottom: 1px solid rgb(189, 189, 189);	
+} 
+
+.mobile-nav .title a{
+
+	text-decoration: none;
+	color: rgb(110, 208, 235);
+}
+
+.mobile-nav .navItem a{
+	text-decoration: none;
+	color: rgb(110, 208, 235);
+}
+
+.navbar{
+	display: flex;
+	text-align: center;
+	align-items: center;
+	padding: 2% 7%;
+	border-bottom: 1px solid rgb(189, 189, 189);
+}
+.nav-Items{
+	display: flex;
+	font-weight: 500;
+	font-size: 25px;
+}
+.nav-Items a{
+	text-decoration: none;
+	color: rgb(110, 208, 235);}
+.navbar .title a{
+	text-decoration: none;
+	color: rgb(110, 208, 235);
+}
+.title{
+	font-weight: 800;
+	font-size: 30px;
+}
+
+.navItem{
+	padding: 0 20px 0 20px;
+	cursor: pointer;
+}
+@media only screen and (max-width : 700px){
+	.navbar{
+		display: none;
+	}
+	.mobile-nav{
+		display: block;
+	}
+}
+
+/* ends here */
+
+
+/* index style */
+.index-main{
+	padding: 60px 7%;
+}
+.sectionOne-title{
+	font-size: 60px;
+	padding-bottom: 8%;
+	color: rgb(110, 208, 235);
+}
+.sectionOne-desc{
+	padding-right: 10%;
+	margin-bottom: 50px;
+}
+.sectionOne-btn{
+	margin-top: 5%;
+	background-color:rgb(110, 208, 235);
+	width: 150px;
+	height: 50px;
+	line-height: 30px;
+	margin-bottom: 70px;
+	color: black;
+}
+
+.sectionOne-btn a{
+	text-decoration: none;
+	color: white;
+}
+.sectionOne-img{
+	width: 100%;
+	height: 100%;
+}
+/* ends here */
+
+/* loginOptions styles */
+	.loginOption-main{
+		padding: 10% 10%;
+	}
+	.loginOption-btn{
+	background-color: rgb(110, 208, 235);
+	width: 150px;
+	height: 50px;
+	line-height: 30px;
+	margin-bottom: 20px;
+	}
+
+	.loginOption-btn a{
+		text-decoration: none;
+		color: white;
+	}
+/* ends here */
+
+/* about styles */
+.about-main{
+	padding: 60px 7%;
+}
+.about-title{
+	color: rgb(105, 150, 217);
+}
+
+
+/* ends here */
