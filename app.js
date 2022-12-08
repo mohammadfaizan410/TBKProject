@@ -22,6 +22,9 @@ app.get("/loginOption", (req, res) => {
 app.get("/services", (req, res) => {
     res.render("services")
 })
+app.get("/register", (req, res) => {
+    res.render("register")
+})
 
 
 
