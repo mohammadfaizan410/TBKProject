@@ -141,6 +141,7 @@ body{
 		position: relative;
 		top: 15px;
 		width: 800px;
+		height: 90%;
 		background-color: white;
 		border-radius: 10px;
 	}
