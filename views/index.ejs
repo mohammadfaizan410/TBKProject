@@ -1,25 +1,110 @@
 
-     <%- include('./partials/nav.ejs') %>
+     <%- include('./partials/nav.ejs')  %>
 
   <body>
     
     <div class="index-main container-fluid">
       <div class="sectionOne">
         <div class="row">
+
+          <% if(typeof user === 'undefined') {%>
+
           <div class="col-lg-6">
             <h1 class="sectionOne-title">
-              Get All Your Dental Needs at One Place
+              Uzaktan Tedaviye Başlama İmkanı
             </h1>
-            <p class="sectionOne-desc">TBK Bilisim provides you access to all clinics in Turkey, allowing you to choose a clinic and dentist of your choice, and make appointments and payments online!</p>
+            <p class="sectionOne-desc">Artık tedaviye başlamanız için kliniğe gelmenize gerek yok, Uygulamamız sayesinde kliniğe gelmenize
+              gerek
+              kalmadan çene ve ağız fotoğraflarınızı sistemimiz üzerinden göndererek doktorunuzla iletişim
+              kurabilirsiniz ve gerekli tedaviye başlayabilirsiniz.</p>
             <div class="sectionOne-btn btn btn-primary">
               <!-- toAbout -->
-              <a href="#">learn more</a>
+              <a href="#">Tedaviye Başla!</a>
             </div>
-          </div>
+          </div> 
+
+
+          <% } else { %>
+
+          
+            <div class="col-lg-6">
+
+              <div class="d-flex flex-column">
+                  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Randevu Oluştur!</button>
+
+                  <div class="previousAppointments">
+
+
+
+
+                  </div>
+
+              </div>
+            
+            </div>
+
+            
+
+
+          <% }  %>
+
+          
           <div class="col-lg-6">
               <img class="sectionOne-img" src="images/6.jpg" alt="">
           </div>
         </div>
       </div>
     </div>
+
+
+
+    <% if(loggedIn == true) {%>
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Randevu Oluştur !</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                      
+                      <form action="/bookAppointment" method="post">
+
+                        <div class="d-flex flex-column">
+
+                          Tarih: <input type="datetime-local" name="date">
+
+                          Hasta: <input type="text" name="patient" value="<%= user.username %>" class="disable_form_element">
+
+                          Doktor: <input type="text" name="dentist">
+
+
+                          <input class="btn btn-primary" type="submit" value="Oluştur">
+                        </div>
+
+
+
+
+                      </form>
+
+              </div>
+              <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">İptal Et</button>
+                  
+              </div>
+          </div>
+      </div>
+  </div>
+
+  <% }%>
+
   </body>
+
+
+  <script>
+
+    
+
+
+  </script>

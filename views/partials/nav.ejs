@@ -6,7 +6,11 @@
     <div class="navItem"><a href="/">HOME</a></div>
     <div class="navItem"><a href="/services"> SERVICES</a></div>
     <div class="navItem"><a href=""> CLINICS</a></div>
-    <div class="navItem"><a href="/loginOption"> LOGIN</a></div>
+    <% if(loggedIn == true){ %>
+      <div class="navItem">Hi <%= user.username %> !</div>
+      <% } else { %>
+      <div class="navItem"><a href="/loginOption">LOGIN</a></div>
+      <% } %>
   </div>
 </div>
   <div class="mobile-nav">
@@ -14,6 +18,10 @@
       <div class="navItem"><a href="/">HOME</a></div>
       <div class="navItem"><a href="/services">SERVICES</a></div>
       <div class="navItem"><a href="">CLINICS</a></div>
-      <div class="navItem"><a href="/loginOption">LOGIN</a></div>
+      <% if(loggedIn == true){ %>
+      <div class="navItem">Hi! <%= user.username %> </div>
+      <% } else { %>
+      <div class="navItem"><a href="/loginOption">LOGIN></a></div>
+      <% } %>
   </div>
   <script src="handlers/handler.js"></script>
