@@ -151,4 +151,9 @@ body{
 			width: 90%;
 		}
 	}
+	
+	.disable_form_element{
+		pointer-events:none;
+		background:grey;
+		}
 /* ends here */
