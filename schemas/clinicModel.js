@@ -6,29 +6,29 @@ const passportlocalmongoose = require("passport-local-mongoose");
 clinicSchema = new mongoose.Schema({
         CID: {
             type: Number,
-            required : true
+            // required : true
         },
         Title: {
             type: String,
-            required : true
+            // required : true
         },
         description: {
             type: String,
-            required : true
+            // required : true
         },
         address: {
             type: String,
-            required: true
+            // required: true
         },
         cover_img: {
             type: String,
-            required: true
+            // required: true
         },
         dentists: [
             {
                 dentist_name: {
-                    type: String,
-                    required: true
+                    // type: String,
+                    // required: true
             }
         }
     ]
