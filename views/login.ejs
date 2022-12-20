@@ -2,19 +2,29 @@
 
 <div class="loginOption-main container-fluid">
     <div class="row">
-        <div class="col-lg-8 text-center">
+        <div class="col-lg-12 text-center">
             <div class="login-wrapper w-75 m-auto border p-5 mb-5">
-                <i class="fa-solid fa-user-doctor fa-10x"></i>
+                <i class="fa-solid fa-user-circle fa-8x"></i>
                 <h1 class="loginOption-title pt-5 pb-5"></h1>
                 <form action="/login" method="post" class="">
-                    Username:<input type="text" name="username">
-                    Password:<input type="password" name="password">
-                    <input class="btn btn-primary loginOption-btn" type="submit" value="Login!">
+                    <div class="mb-3 row">
+                        <label for="username" class="col-sm-2 col-form-label"> Kullanıcı Adı:</label>
+                        <div class="col-sm-8">
+                          <input type="text"  class="form-control" id="username" >
+                        </div>
+                      </div>
+                      <div class="mb-3 row">
+                        <label for="inputPassword" class="col-sm-2 col-form-label"> Şifre:</label>
+                        <div class="col-sm-8">
+                          <input type="password" class="form-control" id="inputPassword">
+                        </div>
+                      </div>
+                    <input class="btn btn-primary loginOption-btn" type="submit" value="Giriş Yap!">
                 </form>
                 <p>
-                    don't have account?
+                   Hesabınız yok mu?
                 </p>
-                <a class="btn btn-primary loginOption-btn" href="/register?type=dentist">register!</a>
+                <a class="btn btn-primary loginOption-btn" href="/register?type=patient">kayıt olun!</a>
             </div>
         </div>
     </div>

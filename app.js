@@ -7,11 +7,20 @@ const { patientModel } = require("./schemas/patientModel");
 const { dentistModel } = require("./schemas/dentistModel");
 const { appointmentModel } = require("./schemas/appointmentModel");
 const { clinicModel } = require("./schemas/clinicModel");
+const { mediaModel } = require("./schemas/mediaModel");
 const User = require("./schemas/user");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const passportLocalMongoose = require("passport-local-mongoose");
-mongoose.connect("mongodb://127.0.0.1:27017/TBK-DB", { useNewUrlParser: true });    
+mongoose.connect("mongodb://127.0.0.1:27017/TBK-DB", { useNewUrlParser: true });
+const os = require("os");
+const multer  = require('multer');
+const upload = multer({ dest: os.tmpdir(), limits: { fileSize: 5000000 }, fileFilter: (req, file, cb) => {
+    const isValid = !!MIME_TYPE_MAP[file.mimetype];
+    let error = isValid ? null : new Error('Invalid mime type!');
+    cb(error, isValid);
+  } });
+const fs = require('file-system');    
 app.use(require("express-session")({
     secret:"Miss white is my cat",
     resave: false,
@@ -23,6 +32,12 @@ let userType = null;
 let registered = '';
 
 let loginError = '';
+
+const MIME_TYPE_MAP = {
+    'image/png': 'png',
+    'image/jpeg': 'jpeg',
+    'image/jpg': 'jpg'
+  };
 
 app.use(passport.initialize());
 app.use(passport.session());
@@ -53,6 +68,7 @@ app.get("/", (req, res) => {
     res.render("index", {loggedIn: req.isLoggedIn, user: req.user});
 })
 
+
 app.post("/bookAppointment", (req,res) =>{
     if(req.isAuthenticated()){
         
@@ -71,11 +87,47 @@ app.post("/bookAppointment", (req,res) =>{
     else
         res.send(`{err: "You are not logged in!"}`)
 });
+// this post is for the superuser ui where we add clinics to system
+app.post("/createClinic", (req,res) =>{
 
-app.get("/loginOption", (req, res) => {
+    var clinic = new clinicModel({
+        CID: req.body.cid,
+        title: req.body.title,
+        description: req.body.description,
+        address: req.body.address,
+        cover_img: req.body.cover_img
+    });
+
+    clinic.save((err, results)=>{
+        res.send(`{success: "Clinic saved. ${results._id}}`);
+    })
+});
+
+
+app.post("/uploadMedia", upload.single('file'), (req, res) => {
+
+    if(req.isAuthenticated()){
+            console.log(req.file);
+            var img = fs.readFileSync(req.file.path);
+            var encode_image = img.toString('base64');
+            // Define a JSONobject for the image attributes for saving to database
+         
+            var media = new mediaModel({
+                contentType: req.file.mimetype,
+                image: Buffer.from(encode_image, 'base64'),
+                author: req.user.username
+            });
+            
+            media.save((err, results)=>{
+                res.send(`{ "success": "Media uploaded.", "mid":"${results._id}"}`);
+            });
+    }
+});
+
+app.get("/login", (req, res) => {
     if (req.isAuthenticated()) res.render("/")
     else
-    res.render("loginOptions")
+    res.render("login")
 })
 
 app.get("/services", (req, res) => {
@@ -85,8 +137,8 @@ app.get("/services", (req, res) => {
 
 app.get("/register", (req, res) => {
     userType = req.query.type;
-    //check if register page accessed from loginoption to get user type
-    !req.query.type ? res.redirect("/loginOption") : res.render("register",{registered:registered});
+    //check if register page accessed from login to get user type
+    !req.query.type ? res.redirect("/login") : res.render("register",{registered:registered});
 
 })
 
@@ -104,16 +156,22 @@ app.post("/register", (req, res) => {
     });
 })
 
-app.get("/login", (req, res) => {
-    !req.query.type ? res.redirect("/loginOption") : res.render("login");
+ // app.get("/login", (req, res) => {
+    // !req.query.type ? res.redirect("/loginOption") : res.render("login");
    
-})
+ // })
 
 app.post("/login", passport.authenticate("local",{
-    successRedirect: "/",
     failureRedirect: "/login"
 }), function(req, res){
+    if(req.user.userType == "patient")
+    res.render("views/index", {loggedIn: req.loggedIn, user: req.user});
+
+    else if(req.user.userType == "dentist")
+    res.render("dentist", {loggedIn: req.loggedIn, user: req.user});
     
+    else if(req.user.userType == "superUser")
+    res.render("superUser", {loggedIn: req.loggedIn, user: req.user});
 });
 
 function isLoggedIn(req, res, next){
@@ -125,3 +183,12 @@ function isLoggedIn(req, res, next){
 app.listen(port, function () {
     console.log("the server is up and running!");
 })
+
+
+/** 
+ * ADD AN SUPER USER INTO LOCAL DEV SPACE
+User.register(new User({username: "tbk_dental", userType : "superUser"}), "tbk_root", function(err, user){
+
+    console.log(user+"registered.");
+});
+*/
