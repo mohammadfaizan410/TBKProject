@@ -8,7 +8,7 @@ clinicSchema = new mongoose.Schema({
             type: Number,
             // required : true
         },
-        Title: {
+        title: {
             type: String,
             // required : true
         },
