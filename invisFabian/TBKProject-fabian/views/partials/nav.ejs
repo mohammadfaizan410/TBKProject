@@ -1,0 +1,27 @@
+<%- include("./header.ejs") %>
+<div class="navbar">
+  <div class="title"><a href="/">TBK BİLİŞİM</a></div>
+  
+  <div class="nav-Items">
+    <div class="navItem"><a href="/">ANA SAYFA</a></div>
+    <div class="navItem"><a href="/services"> HİZMETLER</a></div>
+    <div class="navItem"><a href=""> KLİNİKLER</a></div>
+    <% if(loggedIn == true){ %>
+      <div class="navItem">Hi <%= user.username %> !</div>
+      <% } else { %>
+      <div class="navItem"><a href="/login">GİRİŞ YAP</a></div>
+      <% } %>
+  </div>
+</div>
+  <div class="mobile-nav">
+      <div class="title"><a href="/">TBK BİLİŞİM</a></div>
+      <div class="navItem"><a href="/">ANA SAYFA</a></div>
+      <div class="navItem"><a href="/services">HİZMETLER</a></div>
+      <div class="navItem"><a href="">KLİNİKLER</a></div>
+      <% if(loggedIn == true){ %>
+      <div class="navItem">Hi! <%= user.username %> </div>
+      <% } else { %>
+      <div class="navItem"><a href="/login">GİRİŞ YAP></a></div>
+      <% } %>
+  </div>
+  <script src="handlers/handler.js"></script>

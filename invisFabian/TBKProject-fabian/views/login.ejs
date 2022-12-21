@@ -1,0 +1,31 @@
+<%-include("./partials/header.ejs")%>
+
+<div class="loginOption-main container-fluid">
+    <div class="row">
+        <div class="col-lg-12 text-center">
+            <div class="login-wrapper w-75 m-auto border p-5 mb-5">
+                <i class="fa-solid fa-user-circle fa-8x"></i>
+                <h1 class="loginOption-title pt-5 pb-5"></h1>
+                <form action="/login" method="post" class="">
+                    <div class="mb-3 row">
+                        <label for="username" class="col-sm-2 col-form-label"> Kullanıcı Adı:</label>
+                        <div class="col-sm-8">
+                          <input type="text"  class="form-control" id="username" name="username" >
+                        </div>
+                      </div>
+                      <div class="mb-3 row">
+                        <label for="inputPassword" class="col-sm-2 col-form-label"> Şifre:</label>
+                        <div class="col-sm-8">
+                          <input type="password" class="form-control" id="inputPassword" name="password">
+                        </div>
+                      </div>
+                    <input class="btn btn-primary loginOption-btn" type="submit" value="Giriş Yap!">
+                </form>
+                <p>
+                   Hesabınız yok mu?
+                </p>
+                <a class="btn btn-primary loginOption-btn" href="/registerOptions">kayıt olun!</a>
+            </div>
+        </div>
+    </div>
+</div>

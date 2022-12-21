@@ -1,0 +1,100 @@
+<%- include("./partials/header.ejs") %>
+
+<body>
+    <div class="row">
+
+        <div class="col-12">
+
+
+           <h1> Selam! <%= user.username%> </h1>
+
+           <p>
+
+                Bu arayüz klinik hesabi oluşturmak içindir.
+
+           </p>
+
+           <div class="form-container container-fluid shadow p-5">
+                <form action="/createClinic" method="post" id="clinicForm">
+                CID:<input type="text" placeholder="CID" class="form-control p-3 mb-3" name="cid">
+                Başlık:<input type="text" placeholder="Başlık Yazınız" class="form-control p-3 mb-3" name="title">    
+                Açıklama:<input type="text" placeholder="Açıklama Yazınız" class="form-control p-3 mb-3" name="description">
+
+                <div class="mb-3">
+                    <label for="exampleFormControlTextarea1" class="form-label">Adres:</label>
+                    <textarea class="form-control" placeholder="Adres Yazınız" id="exampleFormControlTextarea1" rows="3"></textarea>
+                </div>
+
+                <div class="mb-3">
+                    <label for="formFileMultiple" class="form-label">Kapak Fotoğrafı:</label>
+                    <input class="form-control" type="file" id="formFileMultiple" multiple>
+                  </div>
+
+                <button id="createClinic" type="button" class="btn btn-primary">Kaydet!</button>
+
+                </form>
+
+
+
+           </div>
+
+        </div>
+
+    </div>
+</body>
+
+<script>
+
+
+$(()=>{
+
+    $("#createClinic").click(()=>{
+        
+        var form_data = new FormData($("#clinicForm")[0]);
+        
+        var image_data = new FormData();
+
+        image_data.set("file", form_data.get("cover_image"));
+
+        $.ajax({
+            url: "/uploadMedia",
+            type: "POST",
+            data:image_data,
+            async: false,
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: (res)=>{
+                res = JSON.parse(res);
+                $("#cov_img").attr("type", "text").val(res.mid).addClass("disable_form_element");
+
+
+                $.post("/createClinic", {
+
+                },$("#clinicForm").serialize(), (res)=>{
+
+                    console.log(res);
+
+                })
+
+            }
+        });
+
+        //image_data.set("file", form_data.get("cov_img"))
+
+        
+
+        /*
+        $.post("/uploadMedia", {
+
+        })
+        */
+
+
+    })
+
+
+});
+
+
+</script>
